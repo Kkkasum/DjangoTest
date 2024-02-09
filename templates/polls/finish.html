@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ poll_title }}
+{% endblock %}
+
+{% block content %}
+    {% for question, choices in questions.items %}
+        <h1 class="mb-5 text-center">{{ question }}</h1>
+        <ul class="list-group mb-5">
+            {% for choice in choices %}
+            <li class="list-group-item">
+                {{ choice.text }}
+                <span class="badge badge-success float-right">
+                    {{ choice.answer_count }} / {{ choice.answer_percent }}%
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+    <a class="btn btn-secondary" href="{% url 'polls:polls' %}">Пройти еще опросы</a>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Polls App
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Log Out</button>
+        </form>
+    {% endif %}
+
+    {% if polls %}
+    {% for poll in polls %}
+        <div class="card-mb-3">
+            <div class="card-body">
+                <p class="lead">{{ poll.title }}</p>
+                <a href="{% url 'polls:start_poll' poll.id %}" class="btn btn-primary btn-sm">Начать опрос</a>
+            </div>
+        </div>
+    {% endfor %}
+    {% else %}
+        <p>Нет опросов</p>
+    {% endif %}
+{% endblock %}
